@@ -50,18 +50,19 @@ class GameOfLife:
   def run(self):
     while True:
       for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-          pygame.quit()
-          sys.exit()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-          x, y = event.pos
-          col = x // CELL_SIZE
-          row = y // CELL_SIZE
-          if 0 <= col < self.cols and 0 <= row < self.rows:
-            self.grid[row, col] = not self.grid[row, col]
-        elif event.type == pygame.KEYDOWN:
-          if event.key == pygame.K_SPACE:
-            self.running = not self.running
+        match event.type:
+          case pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+          case pygame.MOUSEBUTTONDOWN:
+            x, y = event.pos
+            col = x // CELL_SIZE
+            row = y // CELL_SIZE
+            if 0 <= col < self.cols and 0 <= row < self.rows:
+              self.grid[row, col] = not self.grid[row, col]
+          case pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+              self.running = not self.running
 
       if self.running:
         self.update()
